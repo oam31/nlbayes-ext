@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+.pytest_cache/
+.DS_Store
+# exécutable et archive IPOL (GPL-3.0+) : jamais dans le dépôt
+NL_Bayes
+nl-bayes_*/
+nl-bayes_*.tar.gz
+# sorties des exemples
+comparaison_ipol/

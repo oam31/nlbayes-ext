@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nlbayes-ext"
+version = "0.1.0"
+description = "NL-Bayes denoising extended to raw Bayer CFA mosaics (joint denoising and demosaicking), with Poisson-Gaussian sensor noise models"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Olivier Amram", email = "olivier.amram@free.fr" }]
+keywords = ["denoising", "demosaicking", "NL-Bayes", "Bayer", "CFA", "Poisson-Gaussian", "image processing"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Image Processing",
+]
+dependencies = [
+    "numpy>=1.24",
+    # scipy : loi de Poisson de l'inverse exacte de la stabilisation (vst.py),
+    # convolution du démosaïçage bilinéaire (pilote de denoise_cfa).
+    "scipy>=1.10",
+]
+
+[project.urls]
+Repository = "https://github.com/oam31/nlbayes-ext"
+
+[project.optional-dependencies]
+# Tests : image « astronaut » et PSNR de scikit-image.
+test = ["pytest>=7.0", "scikit-image>=0.21"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
