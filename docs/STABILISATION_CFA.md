@@ -54,16 +54,17 @@ transformée aux très faibles flux. À comparer à la stabilisation.
 
 ## 6. Vitesse
 
-8 passes coûtent 6 à 11 fois la chaîne démosaïçage + NL-Bayes. Pistes :
-réutiliser les groupes d'une passe à l'autre quand le pilote change peu,
-arrêt anticipé (point 4), traitement par tuiles des grandes images
-(mémoire non testée au-delà de 256 × 256), éventuellement un moteur GPU.
+8 passes coûtent 6 à 11 fois la chaîne démosaïçage + NL-Bayes. Fait :
+traitement par tuiles (`tile`, `margin`), qui borne la mémoire des grandes
+images (REFERENCE_TECHNIQUE.md §4.6). Pistes restantes : réutiliser les
+groupes d'une passe à l'autre quand le pilote change peu, arrêt anticipé
+(point 4), tuiles en parallèle, éventuellement un moteur GPU.
 
 ## 7. Modèle de bruit par canal
 
-Un seul couple (a, b) pour toute la mosaïque. Prévoir un modèle par canal
-si les gains diffèrent entre R, G et B (mosaïque avant balance des blancs :
-en principe un seul gain, à vérifier sur données réelles).
+Fait : `noise` accepte un couple (a, b) par canal. En CFA, sans gain
+mesuré (REFERENCE_TECHNIQUE.md §2) ; à revoir avec le point 5 (modèle de
+bruit dans l'estimateur, sans transformée non linéaire par canal).
 
 ## 8. API à figer
 

@@ -69,6 +69,9 @@ rgb = denoise_rgb(demosaiquee, noise=(a, b), sigma_scale=1.1)
 
 # mosaïque de Bayer brute → image RGB débruitée et démosaïquée
 rgb = denoise_cfa(mosaique, noise=(a, b), pattern="RGGB")
+
+# options : modèle de bruit par canal (R, G, B), traitement par tuiles
+rgb = denoise_rgb(image, noise=((aR, bR), (aG, bG), (aB, bB)), tile=512, margin=32)
 ```
 
 | Fonction | Entrée | Sortie | Méthode |

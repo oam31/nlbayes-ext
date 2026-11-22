@@ -47,6 +47,26 @@ Deux façons, exclusives, de décrire le bruit :
 
   Un bruit stationnaire s'écrit a = σ², b = 0 : donner alors `sigma = √a`.
 
+**Modèle par canal** (`denoise_rgb`, `denoise_cfa`) : `noise` accepte
+aussi trois couples `((a_R, b_R), (a_G, b_G), (a_B, b_B))`, et `offset`
+une ou trois valeurs ; chaque canal (ou chaque photosite de la mosaïque,
+selon le motif) est stabilisé et inversé avec son propre modèle. Utile si
+les gains diffèrent entre canaux, par exemple après une balance des blancs
+appliquée avant le débruitage. Mesuré (astronaut 128 × 128, crête 300,
+gains 0,5 / 1 / 2 et lectures 2 / 3 / 5 par canal) :
+
+| | modèle par canal | modèle commun (vert) | modèle commun (moyenne) |
+|---|---|---|---|
+| `denoise_rgb` | **34,33 dB** | 33,46 dB | 34,14 dB |
+| `denoise_cfa` (3 tirages) | 29,64 à 29,70 dB | 29,65 à 29,77 dB | 29,61 à 29,71 dB |
+
+En RGB, le modèle par canal gagne 0,9 dB sur un modèle commun mal choisi
+et 0,2 dB sur la moyenne. En CFA, il n'apporte rien : la stabilisation,
+non linéaire et différente d'un canal à l'autre, déforme les relations
+linéaires entre canaux que l'estimateur apprend dans la covariance du
+groupe, ce qui compense le gain d'une variance exacte (explication
+probable, non démontrée). L'option reste disponible.
+
 Avec `noise`, la fonction applique la transformée d'Anscombe généralisée
 (Murtagh, Starck & Bijaoui, 1995), avec gain K = 1/b et bruit de lecture
 √a : le bruit devient de variance ≈ 1. Le débruiteur travaille avec
@@ -194,6 +214,40 @@ puis `denoise_rgb` (étape 2 commune, σ = C = √κ_Y + 0,2, β₂ = 1,2).
   +7 dB sur ces scènes).
 - Coût : 7 à 12 fois celui de la référence (8 passes).
 
+### 4.6 Traitement par tuiles
+
+Option `tile` (côté, None par défaut : un seul bloc) et `margin` (32
+pixels par défaut) des trois fonctions. L'image est découpée en tuiles ;
+chacune est élargie de `margin` pixels pris dans l'image voisine (rabattus
+aux bords de l'image), traitée, et seul son intérieur est gardé. σ (estimé
+ou stabilisé) et la dynamique ramenée à [0, 255] sont calculés **une fois
+pour toute l'image** : chaque tuile a exactement les mêmes réglages. En
+CFA, `tile` et `margin` sont pairs, pour que chaque tuile commence sur la
+même phase du motif de Bayer ; chaque tuile fait ses propres passes,
+pilote compris.
+
+La marge doit couvrir la fenêtre de recherche : n/2 + k, soit 22 pour
+k = 3 (n = 21) et 30 pour k = 5 (n = 35) ; 32 convient aux réglages par
+défaut, 56 est prudent pour k = 7 (n = 49).
+
+Mesuré (niveaux de gris, σ = 0,1, 8 fils) :
+
+| Image | Tuiles | PSNR | Temps | Mémoire de pointe (numpy) |
+|---|---|---|---|---|
+| 512 × 512 | aucune | 31,024 dB | 3,8 s | 987 Mo |
+| | 256 | 31,021 dB | 4,8 s | 706 Mo |
+| 1 024 × 1 024 | aucune | 35,204 dB | 17,3 s | 2 578 Mo |
+| | 256 | 35,196 dB | 24,4 s | 1 622 Mo |
+| 2 048 × 2 048 | 256 | 35,126 dB | 102 s | 1 734 Mo |
+
+Sans tuiles, la mémoire croît avec la surface de l'image (environ 2,6 Go
+à 1 024², une dizaine de gigaoctets attendus à 2 048²). Avec des tuiles de
+256, elle plafonne vers 1,7 Go, fixée par les tampons de calcul de chaque
+fil, quelle que soit la taille de l'image. Le prix : 25 à 40 % de temps en
+plus (les marges sont calculées deux fois), un écart de PSNR inférieur à
+0,01 dB. En CFA (256², tuiles de 128) : PSNR identique, mémoire −22 %,
+temps +50 %.
+
 ## 5. Choix d'implémentation
 
 Points que l'article ne fixe pas, ou dont l'implémentation s'écarte :
@@ -260,13 +314,14 @@ Constats :
 
 ## 7. Tests
 
-`pytest` (extra `test`) : 77 tests, dont 2 sautés sans l'exécutable IPOL.
+`pytest` (extra `test`) : 85 tests, dont 2 sautés sans l'exécutable IPOL.
 
 | Fichier | Contenu |
 |---|---|
 | `test_gray_rgb.py` | gain, deux étapes, σ estimé, invariance d'échelle, paramètres et imbrications, moteurs, modes couleur, `noise=(a, b)`, contrôles |
 | `test_cfa.py` | motifs, gain sur le bilinéaire, motif faux, sans bruit, `noise=(a, b)`, pilote, passes, critère des zones homogènes, contrôles |
 | `test_vst.py` | transformée, inverse exacte non biaisée (Monte-Carlo, 5 incertitudes-types), stabilisation de la variance, simulateur, `noise_to_gat` |
+| `test_options.py` | `noise` par canal (identique au modèle commun si les canaux sont égaux, gain en RGB, CFA sans dégradation, contrôles) ; tuiles (gris, RGB, CFA avec phase du motif, modèle de bruit) proches du traitement d'un bloc |
 | `test_ipol.py` | protocole d'appel (faux exécutable) ; si `NLBAYES_IPOL_EXE` : gris à 0,4 dB d'IPOL au plus, couleur au moins au niveau d'IPOL (à 0,1 dB) |
 
 Graine modifiable par `NLBAYES_TEST_SEED`.
