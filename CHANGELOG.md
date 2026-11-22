@@ -2,6 +2,17 @@
 
 ## Version History
 
+Non publié
+
+:   -   `noise` accepte un couple (a, b) par canal, et `offset` une valeur
+        par canal (`denoise_rgb`, `denoise_cfa`) : chaque canal est
+        stabilisé selon son propre modèle (gain en RGB, aucun en CFA ;
+        `docs/REFERENCE_TECHNIQUE.md` §2).
+    -   Options `tile` et `margin` (`denoise_gray`, `denoise_rgb`,
+        `denoise_cfa`) : traitement par tuiles à mémoire bornée, σ et
+        dynamique globaux, écart < 0,01 dB (`docs/REFERENCE_TECHNIQUE.md`
+        §4.6).
+
 0.1.0 (2026-11-19)
 
 :   -   Première version : `denoise_gray`, `denoise_rgb` (NL-Bayes, Lebrun,
