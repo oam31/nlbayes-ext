@@ -2,7 +2,7 @@
 
 ## Version History
 
-Non publié
+0.2.0 (2026-11-23)
 
 :   -   `noise` accepte un couple (a, b) par canal, et `offset` une valeur
         par canal (`denoise_rgb`, `denoise_cfa`) : chaque canal est

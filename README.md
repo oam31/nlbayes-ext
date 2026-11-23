@@ -49,7 +49,7 @@ mosaïques simulées, l'extension dépasse nettement la chaîne
 ## Installation
 
 ```bash
-pip install "git+https://github.com/oam31/nlbayes-ext.git@v0.1.0"
+pip install "git+https://github.com/oam31/nlbayes-ext.git@v0.2.0"
 pip install -e ".[test]"                    # développement, depuis le dépôt local
 ```
 

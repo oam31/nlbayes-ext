@@ -16,7 +16,7 @@ from ._gray import article_parameters, resolve_parameters
 from ._vectorized import COLOR_MODES, YUV_MATRIX
 from .api import denoise_cfa, denoise_gray, denoise_rgb
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 __all__ = [
     "denoise_gray",
