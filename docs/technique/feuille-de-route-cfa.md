@@ -7,7 +7,7 @@ d'importance. Les points 1 et 2 peuvent changer la méthode ; les autres
 sont du travail d'ingénierie. Les réglages par défaut (N = 60, 8 passes)
 sont mesurés contre la vraie image : une référence « démosaïçage sans
 bruit » pénalise tout ce qui corrige aussi la couleur
-([référence technique](reference.md) §4.5).
+([NL-Bayes CFA](cfa.md) §4.5).
 
 ## 1. Validation sur données réelles
 
@@ -50,14 +50,14 @@ transformée aux très faibles flux. À comparer à la stabilisation.
 
 8 passes coûtent 6 à 11 fois la chaîne démosaïçage + NL-Bayes. Le
 traitement par tuiles (`tile`, `margin`) borne la mémoire des grandes
-images ([référence technique](reference.md) §4.6). Pistes : réutiliser les
+images ([NL-Bayes CFA](cfa.md) §4.6). Pistes : réutiliser les
 groupes d'une passe à l'autre quand le pilote change peu, arrêt anticipé
 (point 3), tuiles en parallèle, éventuellement un moteur GPU.
 
 ## 6. Modèle de bruit par canal
 
 `noise` accepte un couple (a, b) par canal ; en CFA, sans gain mesuré
-([référence technique](reference.md) §2). À revoir avec le point 4
+([modèle de bruit](nl-bayes.md) §2). À revoir avec le point 4
 (modèle de bruit dans l'estimateur, sans transformée non linéaire par
 canal).
 

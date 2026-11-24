@@ -36,14 +36,14 @@ Sapiro et Mallat (2012) ; le prolongement consiste à lui donner, pour
 chaque patch, la gaussienne de son groupe NL-Bayes, et à itérer. Sur
 mosaïques simulées, l'extension dépasse nettement la chaîne
 « démosaïçage puis NL-Bayes », en particulier sur le bruit de couleur
-(`docs/technique/reference.md` §4.5) ; elle est en cours de validation
+(`docs/technique/cfa.md` §4.5) ; elle est en cours de validation
 ([feuille de route](docs/technique/feuille-de-route-cfa.md)).
 
 > **Portage libre.** nlbayes-ext est écrit à partir des seules publications
 > citées ci-dessous, sans reprendre de code existant. Il n'implique pas les
 > auteurs de ces articles et n'est pas approuvé par eux. L'implémentation de
 > référence de NL-Bayes est celle d'IPOL (Lebrun, 2013, GPL-3.0+), à
-> laquelle la partie NL-Bayes est comparée (`docs/technique/reference.md`
+> laquelle la partie NL-Bayes est comparée (`docs/technique/implementation.md`
 > §6).
 
 ## Installation
@@ -86,7 +86,7 @@ s'écrit `sigma=√a`). Sans l'un ni l'autre, σ est estimé.
 
 ## Documentation
 
-- [référence technique](docs/technique/reference.md) : méthodes,
+- [documents techniques](docs/technique/index.md) : méthodes,
   paramètres, modèle de bruit, choix d'implémentation, comparaison avec IPOL ;
 - [feuille de route](docs/technique/feuille-de-route-cfa.md) : ce qui reste à
   faire avant une version 1.0 de `denoise_cfa` ;

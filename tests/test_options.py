@@ -57,7 +57,7 @@ def test_per_channel_noise_cfa():
     per = denoise_cfa(raw, noise=_models(gains, reads), n_iter=2, n_threads=1)
     com = denoise_cfa(raw, noise=_models(gains, reads)[1], n_iter=2, n_threads=1)
     assert per.shape == x.shape and np.all(np.isfinite(per))
-    # En CFA, pas de gain mesuré du modèle par canal (−0,08 à +0,04 dB, docs/technique/reference.md §2) :
+    # En CFA, pas de gain mesuré du modèle par canal (−0,08 à +0,04 dB, docs/technique/nl-bayes.md §2) :
     # on vérifie seulement qu'il ne dégrade pas.
     assert psnr(x, per, data_range=PEAK) > psnr(x, com, data_range=PEAK) - 0.3
 

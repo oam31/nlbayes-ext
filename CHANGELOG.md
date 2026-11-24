@@ -4,7 +4,11 @@
 
 Non publié
 
-:   -   Documentation réorganisée : documents techniques dans
+:   -   Référence technique découpée en trois documents dans
+        `docs/technique/` (modèle de bruit et NL-Bayes gris et couleur,
+        NL-Bayes CFA, implémentation et tests) ; les chapitres gardent
+        leur numéro.
+    -   Documentation réorganisée : documents techniques dans
         `docs/technique/` (référence technique, feuille de route de
         `denoise_cfa`), publiés avec l'API et les notes de version par
         Sphinx et MyST (`docs/`, extra `docs`). Les documents décrivent
@@ -16,10 +20,10 @@ Non publié
 :   -   `noise` accepte un couple (a, b) par canal, et `offset` une valeur
         par canal (`denoise_rgb`, `denoise_cfa`) : chaque canal est
         stabilisé selon son propre modèle (gain en RGB, aucun en CFA ;
-        `docs/technique/reference.md` §2).
+        `docs/technique/nl-bayes.md` §2).
     -   Options `tile` et `margin` (`denoise_gray`, `denoise_rgb`,
         `denoise_cfa`) : traitement par tuiles à mémoire bornée, σ et
-        dynamique globaux, écart < 0,01 dB (`docs/technique/reference.md`
+        dynamique globaux, écart < 0,01 dB (`docs/technique/cfa.md`
         §4.6).
 
 0.1.0 (2026-11-19)
@@ -32,7 +36,7 @@ Non publié
         stabilisation de variance interne et inverse exacte non biaisée.
     -   Étape 2 couleur à canaux filtrés ensemble (tableau 1 de l'article) :
         au niveau de l'implémentation IPOL en niveaux de gris, au-dessus en
-        couleur (`docs/technique/reference.md` §6).
+        couleur (`docs/technique/implementation.md` §6).
     -   Comparaison avec l'exécutable IPOL (programme externe, non fourni) :
         `examples/ipol_reference.py`, `examples/ipol_comparison.py`,
         `tests/test_ipol.py`.
