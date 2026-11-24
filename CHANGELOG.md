@@ -2,15 +2,24 @@
 
 ## Version History
 
+Non publié
+
+:   -   Documentation réorganisée : documents techniques dans
+        `docs/technique/` (référence technique, feuille de route de
+        `denoise_cfa`), publiés avec l'API et les notes de version par
+        Sphinx et MyST (`docs/`, extra `docs`). Les documents décrivent
+        l'état présent ; ce qui change d'une version à l'autre est dans
+        ce fichier.
+
 0.2.0 (2026-11-23)
 
 :   -   `noise` accepte un couple (a, b) par canal, et `offset` une valeur
         par canal (`denoise_rgb`, `denoise_cfa`) : chaque canal est
         stabilisé selon son propre modèle (gain en RGB, aucun en CFA ;
-        `docs/REFERENCE_TECHNIQUE.md` §2).
+        `docs/technique/reference.md` §2).
     -   Options `tile` et `margin` (`denoise_gray`, `denoise_rgb`,
         `denoise_cfa`) : traitement par tuiles à mémoire bornée, σ et
-        dynamique globaux, écart < 0,01 dB (`docs/REFERENCE_TECHNIQUE.md`
+        dynamique globaux, écart < 0,01 dB (`docs/technique/reference.md`
         §4.6).
 
 0.1.0 (2026-11-19)
@@ -23,7 +32,7 @@
         stabilisation de variance interne et inverse exacte non biaisée.
     -   Étape 2 couleur à canaux filtrés ensemble (tableau 1 de l'article) :
         au niveau de l'implémentation IPOL en niveaux de gris, au-dessus en
-        couleur (`docs/REFERENCE_TECHNIQUE.md` §6).
+        couleur (`docs/technique/reference.md` §6).
     -   Comparaison avec l'exécutable IPOL (programme externe, non fourni) :
         `examples/ipol_reference.py`, `examples/ipol_comparison.py`,
         `tests/test_ipol.py`.

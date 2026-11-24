@@ -2,7 +2,7 @@
 
 > **En développement** (version 0.x) : l'API et les valeurs par défaut
 > peuvent encore changer, en particulier pour `denoise_cfa`
-> ([`docs/STABILISATION_CFA.md`](docs/STABILISATION_CFA.md)).
+> ([feuille de route](docs/technique/feuille-de-route-cfa.md)).
 
 Débruitage d'images **de capteur**, dans le prolongement de NL-Bayes
 (Buades, Lebrun & Morel, 2013), en deux parties :
@@ -36,14 +36,14 @@ Sapiro et Mallat (2012) ; le prolongement consiste à lui donner, pour
 chaque patch, la gaussienne de son groupe NL-Bayes, et à itérer. Sur
 mosaïques simulées, l'extension dépasse nettement la chaîne
 « démosaïçage puis NL-Bayes », en particulier sur le bruit de couleur
-(`docs/REFERENCE_TECHNIQUE.md` §4.5) ; elle est en cours de validation
-(`docs/STABILISATION_CFA.md`).
+(`docs/technique/reference.md` §4.5) ; elle est en cours de validation
+([feuille de route](docs/technique/feuille-de-route-cfa.md)).
 
 > **Portage libre.** nlbayes-ext est écrit à partir des seules publications
 > citées ci-dessous, sans reprendre de code existant. Il n'implique pas les
 > auteurs de ces articles et n'est pas approuvé par eux. L'implémentation de
 > référence de NL-Bayes est celle d'IPOL (Lebrun, 2013, GPL-3.0+), à
-> laquelle la partie NL-Bayes est comparée (`docs/REFERENCE_TECHNIQUE.md`
+> laquelle la partie NL-Bayes est comparée (`docs/technique/reference.md`
 > §6).
 
 ## Installation
@@ -86,10 +86,14 @@ s'écrit `sigma=√a`). Sans l'un ni l'autre, σ est estimé.
 
 ## Documentation
 
-- [`docs/REFERENCE_TECHNIQUE.md`](docs/REFERENCE_TECHNIQUE.md) : méthodes,
+- [référence technique](docs/technique/reference.md) : méthodes,
   paramètres, modèle de bruit, choix d'implémentation, comparaison avec IPOL ;
-- [`docs/STABILISATION_CFA.md`](docs/STABILISATION_CFA.md) : ce qui reste à
-  faire avant une version 1.0 de `denoise_cfa`.
+- [feuille de route](docs/technique/feuille-de-route-cfa.md) : ce qui reste à
+  faire avant une version 1.0 de `denoise_cfa` ;
+- [CHANGELOG.md](CHANGELOG.md) : ce qui change d'une version à l'autre.
+
+Ces documents sont publiés avec la référence de l'API par Sphinx et MyST
+(`docs/`, `make html` dans ce répertoire ; extra `docs`).
 
 ## Tests
 

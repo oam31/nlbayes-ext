@@ -12,3 +12,6 @@ nl-bayes_*/
 nl-bayes_*.tar.gz
 # sorties des exemples
 comparaison_ipol/
+# documentation construite et API générée
+docs/_build/
+docs/api/

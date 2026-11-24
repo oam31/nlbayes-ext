@@ -31,6 +31,8 @@ Repository = "https://github.com/oam31/nlbayes-ext"
 [project.optional-dependencies]
 # Tests : image « astronaut » et PSNR de scikit-image.
 test = ["pytest>=7.0", "scikit-image>=0.21"]
+# Documentation : `make html` dans docs/ (Sphinx, MyST, API autoapi).
+docs = ["sphinx>=7", "sphinx-rtd-theme", "sphinx-autoapi", "myst-parser"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

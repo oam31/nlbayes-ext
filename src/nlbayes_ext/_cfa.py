@@ -22,7 +22,7 @@ mosaïque n'en mesure qu'une valeur par pixel (d = k² mesures, sélection U
 fixée par le motif et par la position du patch). L'estimateur rend les
 D valeurs : il débruite les valeurs mesurées et calcule les autres. L'image
 pilote ne sert qu'à former les groupes et à estimer μ et C ; aucune de ses
-valeurs ne passe dans le résultat. Voir docs/REFERENCE_TECHNIQUE.md.
+valeurs ne passe dans le résultat. Voir docs/technique/reference.md.
 """
 
 from __future__ import annotations
@@ -266,7 +266,7 @@ def nl_bayes_cfa_core(
     N : int
         Taille minimale des groupes (seuil τ = max(τ₀, d_N)). Par défaut 60 :
         la covariance d'un patch couleur 3 × 3 a D = 27 dimensions, et N = 30
-        l'estime mal (−0,2 à −1,6 dB à 4 passes, docs/REFERENCE_TECHNIQUE.md).
+        l'estime mal (−0,2 à −1,6 dB à 4 passes, docs/technique/reference.md).
     beta : float
         Multiplie σ² dans U·C·Uᵀ + βσ²I (rôle de β₂ de NL-Bayes). Par
         défaut 1.
@@ -278,7 +278,7 @@ def nl_bayes_cfa_core(
         défaut 8 : avec N = 60, 8 passes gagnent jusqu'à 1,1 dB sur
         4 passes sur les orthophotos et 2,6 à 3,5 dB sur les scènes à
         grandes zones uniformes ; à 300 e⁻ sur les orthophotos, 4 passes
-        valent autant (docs/REFERENCE_TECHNIQUE.md).
+        valent autant (docs/technique/reference.md).
     use_area : bool
         Critère des zones homogènes : un groupe dont la variance des mesures,
         calculée canal par canal autour de la moyenne de chaque canal, reste
@@ -286,7 +286,7 @@ def nl_bayes_cfa_core(
         Désactivé par défaut (coûteux sur une zone parfaitement uniforme) ;
         à activer à faible flux : il ramène l'erreur de luminance des
         ombres au niveau de la chaîne démosaïçage + NL-Bayes, pour 2 à 3 %
-        d'erreur de couleur en plus (docs/REFERENCE_TECHNIQUE.md).
+        d'erreur de couleur en plus (docs/technique/reference.md).
     area_z : float
         Seuil statistique du critère : s² ≤ σ²·(1 + z·√(2/(n − 3))), n le
         nombre de mesures du groupe (√(2/(n − 3)) : fluctuation relative de s²

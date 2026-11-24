@@ -351,7 +351,7 @@ def denoise_cfa(
     Estimateur des estimateurs linéaires par morceaux (Yu, Sapiro & Mallat,
     2012) appliqué aux groupes non locaux de NL-Bayes : pour un patch couleur
     x observé par y = U·x + n, x̂ = μ + C·Uᵀ(U·C·Uᵀ + βσ²I)⁻¹(y − U·μ), μ et C
-    étant estimées sur une image pilote. Voir docs/REFERENCE_TECHNIQUE.md.
+    étant estimées sur une image pilote. Voir docs/technique/reference.md.
 
     Parameters
     ----------
